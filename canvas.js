@@ -52,4 +52,6 @@ $(document).ready(function(){
         console.log(method[variable].GREEN(512,512));
         console.log(method[variable].BLUE(512,512));
     });
+
+    $("input")[0].click();
 });
