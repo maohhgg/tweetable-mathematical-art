@@ -23,6 +23,7 @@ var data = ctx.createImageData(pixel,pixel);
 
 var method = {
     Martin : Martin,
+    simple : simple,
     githubphagocyte : githubphagocyte,
     githubphagocyte_motion : githubphagocyte_motion,
     Mandelbrot : Mandelbrot,
@@ -35,6 +36,10 @@ var method = {
     demo4 : demo4,
     demo5 : demo5,
     demo6 : demo6,
+    demo7 : demo7,
+    demo8 : demo8,
+    demo9 : demo9,
+    demo10 : demo10,
 };
 for (var variable in method) {
     if (method.hasOwnProperty(variable)) {
@@ -48,10 +53,7 @@ $(document).ready(function(){
         var variable = $(this).val();
         data = drawImage(data,method[variable])
         ctx.putImageData(data,0,0);
-        console.log(method[variable].RED(512,512));
-        console.log(method[variable].GREEN(512,512));
-        console.log(method[variable].BLUE(512,512));
     });
 
-    $("input")[0].click();
+    $("input")[14].click();
 });
