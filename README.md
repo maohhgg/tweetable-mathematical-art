@@ -12,6 +12,12 @@
 
 ![githubphagocyte.png](screenshot/githubphagocyte.png)
 
+
+![png](screenshot/51.png)
+
+
+![png](screenshot/52.png)
+
 ### Example
 
 [tweetable-mathematical-art](https://maohhgg.github.io/tweetable-mathematical-art)
