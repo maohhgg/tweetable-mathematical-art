@@ -86,13 +86,19 @@ var maohhgg = {
 }
 var demo = {
     RED : function(i,j){
-
+        var x=0,y=0;
+        for(var k=0;k<15;k++){var t=Math.pow(Math.sin(x),2)-Math.pow(Math.cos(y),2)+(i-512)/512;y=2*Math.sin(x)*Math.cos(y)+(j-512)/512;x=t;}
+        return parseInt(20*(x*x+y*y));
     },
     GREEN : function(i,j){
-
+        var x=0,y=0;
+        for(var k=0;k<15;k++){var t=Math.pow(Math.sin(x),2)-Math.pow(Math.cos(y),2)+(i-512)/512;y=2*Math.sin(x)*Math.cos(y)+(j-512)/512;x=t;}
+        return parseInt(90*Math.abs(x));
     },
     BLUE : function(i,j){
-
+        var x=0,y=0;
+        for(var k=0;k<15;k++){var t=Math.pow(Math.sin(x),2)-Math.pow(Math.cos(y),2)+(i-512)/512;y=2*Math.sin(x)*Math.cos(y)+(j-512)/512;x=t;}
+        return parseInt(90*Math.abs(y));
     }
 }
 var demo0 = {
@@ -108,15 +114,24 @@ var demo0 = {
 }
 var demo1 = {
     RED : function(i,j){
-        return parseInt((Math.sqrt(Math.pow(73-i,2)+Math.pow(609-j,2))+1)/(Math.sqrt(Math.abs(Math.sin((Math.sqrt(Math.pow(860-i,2)+Math.pow(162-j,2)))/115)))+1)/200);
+        return pixel - this.BLUE(2*i, 2*j);
     },
     GREEN : function(i,j){
-        return parseInt((Math.sqrt(Math.pow(160-i,2)+Math.pow(60-j,2))+1)/(Math.sqrt(Math.abs(Math.sin((Math.sqrt(Math.pow(86-i,2)+Math.pow(860-j,2)))/115)))+1)/200);
+        return this.BLUE(j,i)+128;
     },
     BLUE : function(i,j){
-        return parseInt((Math.sqrt(Math.pow(844-i,2)+Math.pow(200-j,2))+1)/(Math.sqrt(Math.abs(Math.sin((Math.sqrt(Math.pow(250-i,2)+Math.pow(20-j,2)))/115)))+1)/200);
+        i -= pixel / 2;
+        j -= pixel / 2;
+        var theta = Math.atan2(j,i);
+        var prc = theta / 3.14 / 2;
+        var dist = Math.sqrt(i*i + j*j);
+        var makeSpiral = prc * pixel / 2;
+        var waves = Math.sin(Math.pow(dist * dist,1/3)) * 32 + Math.sin(theta * 10) * 64;
+        return parseInt(dist + makeSpiral + waves);
     }
 }
+
+
 var demo2 = {
     RED : function(i,j){
         return j^j-i^i;
@@ -126,5 +141,72 @@ var demo2 = {
     },
     BLUE : function(i,j){
         return i^i-j^j;
+    }
+}
+
+var demo3 = {
+    RED : function(i,j){
+        var a=0,b=0,c,d,n=0;
+        while((c=a*a)+(d=b*b)<4&&n++<880){b=2*a*b+(j)*9e-9-.645411;a=c-d+(i)*9e-9+0.356888;}
+        return parseInt(1000*Math.pow((n)/800,0.5));
+    },
+    GREEN : function(i,j){
+        var a=0,b=0,c,d,n=0;
+        while((c=a*a)+(d=b*b)<4&&n++<880){b=2*a*b+(j)*9e-9-.645411;a=c-d+(i)*9e-9+.356888;}
+        return parseInt(40*Math.pow((n)/800,0.5));
+    },
+    BLUE : function(i,j){
+        var a=0,b=0,c,d,n=0;
+        while((c=a*a)+(d=b*b)<4&&n++<880){b=2*a*b+(j)*9e-9-.645411;a=c-d+(i)*9e-9+.356888;}
+        return parseInt(10*Math.pow((n)/800,0.5));
+    }
+}
+
+var demo4 = {
+    RED : function(i,j){
+        var I = i-pixel;
+        var J = j-pixel;
+        var A = Math.sin((i+j)/64)*Math.cos((i-j)/64);
+        return parseInt(Math.atan2(I*Math.cos(A)-J*Math.sin(A),I*Math.sin(A)+J*Math.cos(A))/3.14*pixel+pixel);
+    },
+    GREEN : function(i,j){
+        var I = i-pixel;
+        var J = j-pixel;
+        var A = (3.14/3+Math.sin((i+j)/64.)*Math.cos((i-j)/64.));
+        return parseInt(Math.atan2(I*Math.cos(A)-J*Math.sin(A),I*Math.sin(A)+J*Math.cos(A))/3.14*pixel+pixel);
+    },
+    BLUE : function(i,j){
+        var I = i-pixel;
+        var J = j-pixel;
+        var A =  (2*3.14/3+Math.sin((i+j)/64.)*Math.cos((i-j)/64.));
+        return parseInt(Math.atan2(I*Math.cos(A)-J*Math.sin(A),I*Math.sin(A)+J*Math.cos(A))/3.14*pixel+pixel);
+    }
+}
+
+var demo5 = {
+    RED : function(i,j) {
+        if (j < pixel/2) j=pixel-j;
+        return (i % j) | i;
+    },
+    GREEN : function(i,j){
+        if (j < 512) j = 1024 -j;
+        return (1024-i ^ (i %j)) % j;
+    },
+    BLUE : function(i,j){
+        if (j < 512) j = 1024 -j;
+        return 1024-i | i+j %512;
+    }
+}
+
+var demo6 = {
+    RED : function(i,j) {
+        var a=pixel-Math.sqrt(Math.pow(i-pixel/2,2)*Math.pow(j-pixel/2,2)/8);
+        return a<0?0:a;
+    },
+    GREEN : function(i,j){
+        return parseInt((i^j)/9*Math.sqrt(Math.pow((i-pixel/2)/10,2)*Math.pow((j-pixel/2)/10,2)))%pixel/(1+3*(i+j)/pixel);
+    },
+    BLUE : function(i,j){
+         return i&(Math.pow(i/(j/10+1),2)|j);
     }
 }
