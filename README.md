@@ -14,4 +14,4 @@
 
 ### Example
 
-[tweetable-mathematical-art](https://maohhg.github.io/tweetable-mathematical-art)
+[tweetable-mathematical-art](https://maohhgg.github.io/tweetable-mathematical-art)
