@@ -27,10 +27,14 @@ var method = {
     githubphagocyte_motion : githubphagocyte_motion,
     Mandelbrot : Mandelbrot,
     maohhgg : maohhgg,
-    demo0 : demo0,
     demo : demo,
+    demo0 : demo0,
     demo1 : demo1,
     demo2 : demo2,
+    demo3 : demo3,
+    demo4 : demo4,
+    demo5 : demo5,
+    demo6 : demo6,
 };
 for (var variable in method) {
     if (method.hasOwnProperty(variable)) {
@@ -44,5 +48,8 @@ $(document).ready(function(){
         var variable = $(this).val();
         data = drawImage(data,method[variable])
         ctx.putImageData(data,0,0);
+        console.log(method[variable].RED(512,512));
+        console.log(method[variable].GREEN(512,512));
+        console.log(method[variable].BLUE(512,512));
     });
 });
